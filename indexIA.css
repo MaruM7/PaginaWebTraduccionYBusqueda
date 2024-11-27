@@ -1,0 +1,109 @@
+/* Estilos generales para el cuerpo de la página */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+/* Estilos para el encabezado */
+header {
+    background-color: #003399; 
+    color: #FFCC00; 
+    padding: 10px 0;
+    text-align: center;
+}
+
+/* Estilo para el título principal */
+header h1 {
+    margin: 0;
+    font-family: 'Lobster', cursive; 
+    font-size: 3rem;
+    color: #FFCC00; 
+    letter-spacing: 2px;
+}
+
+/* Estilos para el menú de navegación */
+nav ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    margin: 0;
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: #FFCC00; 
+    text-decoration: none;
+    font-size: 1.2rem;
+    transition: color 0.3s, font-weight 0.3s; 
+}
+
+nav ul li a:hover {
+    color: #FFFFFF; 
+    font-weight: bold; 
+}
+
+/* Estilos para las herramientas (barra de búsqueda y selector de idioma) */
+.tools {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+
+#search-bar {
+    padding: 8px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+#language-selector {
+    padding: 8px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Estilos para las secciones */
+section {
+    padding: 20px;
+    margin: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo para los títulos de las secciones */
+h2 {
+    color: #003399; 
+}
+
+/* Estilos para las listas */
+ul {
+    padding-left: 20px;
+}
+
+/* Estilos para el pie de página */
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #003399; 
+    color: #FFCC00; 
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
+
+/* Estilo para resaltar las palabras encontradas durante la búsqueda */
+.highlight {
+    background-color: yellow;
+    font-weight: bold;
+}
