@@ -70,29 +70,38 @@
         async function translatePage(languageCode) {
             const textElements = document.querySelectorAll('h1, h2, p, li, strong'); // Selecciona todos los elementos que contienen texto
             for (let element of textElements) {
-                const text = element.innerText;
-                const translatedText = await translateText(text, languageCode);
+                const originalText = element.innerText;
+                const translatedText = await translateText(originalText, languageCode);
                 element.innerText = translatedText;
             }
         }
 
         // Función para traducir el texto usando la API de LibreTranslate
         async function translateText(text, languageCode) {
-            const response = await fetch('https://libretranslate.de/translate', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    q: text,
-                    source: 'es', // Establece el idioma de origen como español
-                    target: languageCode,
-                    format: 'text',
-                }),
-            });
+            try {
+                const response = await fetch('https://libretranslate.de/translate', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        q: text,
+                        source: 'es', // Idioma de origen (Español)
+                        target: languageCode,
+                        format: 'text',
+                    }),
+                });
 
-            const data = await response.json();
-            return data.translatedText;
+                if (!response.ok) {
+                    throw new Error('Error al traducir el texto');
+                }
+
+                const data = await response.json();
+                return data.translatedText;
+            } catch (error) {
+                console.error('Error al traducir:', error);
+                return text; // Si hay un error, devuelve el texto original
+            }
         }
 
         // Evento para manejar el cambio de idioma
