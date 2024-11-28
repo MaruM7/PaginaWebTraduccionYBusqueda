@@ -101,7 +101,7 @@
             }
         });
 
-        // Función de traducción (sin cambios)
+        // Función de traducción con Google Translate
         document.getElementById('language-selector').addEventListener('change', function() {
             const lang = this.value;
             const url = `https://translate.google.com/translate?hl=&sl=auto&tl=${lang}&u=${encodeURIComponent(window.location.href)}`;
