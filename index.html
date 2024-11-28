@@ -66,16 +66,32 @@
     </footer>
 
     <script>
+        // Función para resaltar las palabras encontradas
+        function highlightText(query) {
+            const sections = document.querySelectorAll('section');
+            sections.forEach(section => {
+                const sectionText = section.innerHTML;  // Obtener el HTML de la sección
+                const regex = new RegExp(`(${query})`, 'gi');  // Expresión regular para encontrar las coincidencias
+                const highlightedText = sectionText.replace(regex, '<span class="highlight">$1</span>');  // Resaltar las coincidencias
+                section.innerHTML = highlightedText;  // Reemplazar el contenido de la sección con el resaltado
+            });
+        }
+
         // Barra de búsqueda
         document.getElementById('search-bar').addEventListener('input', function() {
             const query = this.value.toLowerCase();
-            const sections = document.querySelectorAll('section');
-            sections.forEach(section => {
-                section.style.display = section.textContent.toLowerCase().includes(query) ? 'block' : 'none';
-            });
+            if (query) {
+                highlightText(query);  // Llamar a la función para resaltar las palabras
+            } else {
+                // Si la barra de búsqueda está vacía, eliminar el resaltado
+                const highlightedElements = document.querySelectorAll('.highlight');
+                highlightedElements.forEach(element => {
+                    element.classList.remove('highlight');
+                });
+            }
         });
 
-        // Traducción
+        // Función de traducción (sin cambios)
         document.getElementById('language-selector').addEventListener('change', function() {
             const lang = this.value;
             const url = `https://translate.google.com/translate?hl=&sl=auto&tl=${lang}&u=${encodeURIComponent(window.location.href)}`;
