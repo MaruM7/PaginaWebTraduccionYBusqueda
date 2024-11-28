@@ -66,35 +66,32 @@
     </footer>
 
     <script>
-        // Barra de búsqueda
+        // Función de búsqueda para la barra de búsqueda
         document.getElementById('search-bar').addEventListener('input', function() {
-            const query = this.value.toLowerCase();
-            const sections = document.querySelectorAll('section');
+            const query = this.value.toLowerCase(); // Obtenemos la búsqueda en minúsculas
+            const sections = document.querySelectorAll('section'); // Seleccionamos todas las secciones
+            const regex = new RegExp(query, 'gi'); // Creamos una expresión regular para buscar la palabra (insensible a mayúsculas/minúsculas)
             
-            // Restablecer resaltado previo
-            document.querySelectorAll('.highlight').forEach(function(highlighted) {
-                highlighted.classList.remove('highlight');
-            });
-
+            // Limpiamos los resaltes anteriores
             sections.forEach(section => {
-                const texts = section.querySelectorAll('p, ul');
-                texts.forEach(textElement => {
-                    const textContent = textElement.innerHTML;
-                    const regex = new RegExp(`\\b${query}\\b`, 'gi'); // Buscar solo palabras completas
-
-                    if (regex.test(textContent)) {
-                        const newText = textContent.replace(regex, match => `<span class="highlight">${match}</span>`);
-                        textElement.innerHTML = newText;
-                    }
-                });
+                section.innerHTML = section.innerHTML.replace(/<span class="highlight">/g, '').replace(/<\/span>/g, '');
             });
+
+            if (query.length > 0) {
+                // Resaltamos las palabras encontradas
+                sections.forEach(section => {
+                    section.innerHTML = section.innerHTML.replace(regex, function(match) {
+                        return `<span class="highlight">${match}</span>`; // Resaltamos las palabras
+                    });
+                });
+            }
         });
 
-        // Función para traducir el contenido
+        // Cambio de idioma usando Google Translate
         document.getElementById('language-selector').addEventListener('change', function() {
             const lang = this.value;
             const url = `https://translate.google.com/translate?hl=&sl=auto&tl=${lang}&u=${encodeURIComponent(window.location.href)}`;
-            window.location.href = url;
+            window.location.href = url; // Redirigimos al URL traducido
         });
     </script>
 </body>
