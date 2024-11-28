@@ -66,55 +66,59 @@
     </footer>
 
     <script>
-        // Barra de búsqueda
-        document.getElementById('search-bar').addEventListener('input', function () {
-            const query = this.value.toLowerCase();
-            const sections = document.querySelectorAll('section');
-            sections.forEach(section => {
-                const textContent = section.textContent.toLowerCase();
-                if (query && textContent.includes(query)) {
-                    section.innerHTML = section.innerHTML.replace(
-                        new RegExp(`(${query})`, 'gi'),
-                        '<span class="highlight">$1</span>'
-                    );
-                } else {
-                    section.innerHTML = section.innerHTML.replace(/<span class="highlight">|<\/span>/g, '');
-                }
-                section.style.display = textContent.includes(query) ? 'block' : 'none';
-            });
-        });
+        // URL base de la API Lingva Translate
+        const lingvaUrl = "https://lingva.ml/api/v1/translate";
 
-        // Traducción usando LibreTranslate API
-        const apiUrl = 'https://libretranslate.com/translate';
-        document.getElementById('language-selector').addEventListener('change', async function () {
-            const targetLang = this.value;
-            const sections = document.querySelectorAll('section, header h1, footer p');
+        // Función para traducir texto usando Lingva Translate
+        async function translatePage(language) {
+            const sections = document.querySelectorAll("section");
+
             for (const section of sections) {
-                const originalText = section.textContent; // Original text
-                const translatedText = await translateText(originalText, 'es', targetLang);
-                section.textContent = translatedText;
-            }
-        });
+                const originalText = section.dataset.originalText || section.innerHTML;
 
-        async function translateText(text, sourceLang, targetLang) {
-            try {
-                const response = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        q: text,
-                        source: sourceLang,
-                        target: targetLang,
-                        format: 'text'
-                    })
-                });
-                const data = await response.json();
-                return data.translatedText || text; // Return translation or original text if failed
-            } catch (error) {
-                console.error('Error al traducir:', error);
-                return text;
+                // Guarda el texto original para futuras traducciones
+                if (!section.dataset.originalText) {
+                    section.dataset.originalText = originalText;
+                }
+
+                try {
+                    const response = await fetch(`${lingvaUrl}?from=auto&to=${language}&text=${encodeURIComponent(originalText)}`);
+                    const data = await response.json();
+
+                    if (data && data.translation) {
+                        section.innerHTML = data.translation;
+                    }
+                } catch (error) {
+                    console.error("Error al traducir:", error);
+                    section.innerHTML = "Error al traducir este contenido.";
+                }
             }
         }
+
+        // Escucha los cambios del selector de idioma
+        document.getElementById("language-selector").addEventListener("change", function () {
+            const selectedLanguage = this.value;
+            translatePage(selectedLanguage);
+        });
+
+        // Funcionalidad de búsqueda
+        document.getElementById("search-bar").addEventListener("input", function () {
+            const query = this.value.toLowerCase();
+            const sections = document.querySelectorAll("section");
+
+            // Elimina los resaltados anteriores
+            sections.forEach(section => {
+                section.innerHTML = section.innerHTML.replace(/<mark class="highlight">(.*?)<\/mark>/g, '$1');
+            });
+
+            // Resalta las coincidencias
+            if (query) {
+                sections.forEach(section => {
+                    const regex = new RegExp(`(${query})`, 'gi');
+                    section.innerHTML = section.innerHTML.replace(regex, '<mark class="highlight">$1</mark>');
+                });
+            }
+        });
     </script>
 </body>
 </html>
