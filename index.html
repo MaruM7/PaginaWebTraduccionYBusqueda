@@ -6,12 +6,6 @@
     <title>Cultura de Europa</title>
     <link rel="stylesheet" href="index.css">
     <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
-    <style>
-        .highlight {
-            background-color: yellow; /* Resaltar en amarillo */
-            font-weight: bold;
-        }
-    </style>
 </head>
 <body>
     <header>
@@ -25,7 +19,12 @@
         </nav>
         <div class="tools">
             <input type="text" id="search-bar" placeholder="Buscar...">
-            <div id="google_translate_element"></div>
+            <select id="language-selector">
+                <option value="es">Español</option>
+                <option value="en">Inglés</option>
+                <option value="fr">Francés</option>
+                <option value="de">Alemán</option>
+            </select>
         </div>
     </header>
 
@@ -67,53 +66,35 @@
     </footer>
 
     <script>
-        // Función para limpiar todos los resaltados anteriores
-        function removeHighlights() {
-            const highlightedElements = document.querySelectorAll('.highlight');
-            highlightedElements.forEach(element => {
-                element.classList.remove('highlight');
-            });
-        }
-
-        // Función para buscar y resaltar la palabra
-        function highlightWord(query) {
-            removeHighlights(); // Limpiar cualquier resalto anterior
-
-            const regex = new RegExp(`\\b${query}\\b`, 'gi'); // Expresión regular para buscar la palabra exacta
-            const sections = document.querySelectorAll('section, p, li');
-            
-            sections.forEach(section => {
-                section.innerHTML = section.innerHTML.replace(regex, match => {
-                    return `<span class="highlight">${match}</span>`;
-                });
-            });
-        }
-
         // Barra de búsqueda
         document.getElementById('search-bar').addEventListener('input', function() {
             const query = this.value.toLowerCase();
-            if (query) {
-                highlightWord(query); // Resaltar la palabra al escribir
-            } else {
-                removeHighlights(); // Si no hay texto en la búsqueda, quitar los resaltados
-            }
+            const sections = document.querySelectorAll('section');
+            
+            // Restablecer resaltado previo
+            document.querySelectorAll('.highlight').forEach(function(highlighted) {
+                highlighted.classList.remove('highlight');
+            });
+
+            sections.forEach(section => {
+                const texts = section.querySelectorAll('p, ul');
+                texts.forEach(textElement => {
+                    const textContent = textElement.innerHTML;
+                    const regex = new RegExp(`\\b${query}\\b`, 'gi'); // Buscar solo palabras completas
+
+                    if (regex.test(textContent)) {
+                        const newText = textContent.replace(regex, match => `<span class="highlight">${match}</span>`);
+                        textElement.innerHTML = newText;
+                    }
+                });
+            });
         });
 
-        // Google Translate Widget
-        function googleTranslateElementInit() {
-            new google.translate.TranslateElement({
-                pageLanguage: 'es',
-                includedLanguages: 'es,en,fr,de',
-                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
-            }, 'google_translate_element');
-        }
-
-        // Asegurarse de que Google Translate no interfiera con el buscador
-        window.addEventListener('load', function() {
-            const script = document.createElement('script');
-            script.type = 'text/javascript';
-            script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
-            document.body.appendChild(script);
+        // Función para traducir el contenido
+        document.getElementById('language-selector').addEventListener('change', function() {
+            const lang = this.value;
+            const url = `https://translate.google.com/translate?hl=&sl=auto&tl=${lang}&u=${encodeURIComponent(window.location.href)}`;
+            window.location.href = url;
         });
     </script>
 </body>
