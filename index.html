@@ -71,21 +71,42 @@
             const query = this.value.toLowerCase(); // Obtenemos la búsqueda en minúsculas
             const sections = document.querySelectorAll('section'); // Seleccionamos todas las secciones
             const regex = new RegExp(query, 'gi'); // Creamos una expresión regular para buscar la palabra (insensible a mayúsculas/minúsculas)
-            
+
             // Limpiamos los resaltes anteriores
             sections.forEach(section => {
-                section.innerHTML = section.innerHTML.replace(/<span class="highlight">/g, '').replace(/<\/span>/g, '');
+                // Limpiar los resaltados previos
+                section.querySelectorAll('.highlight').forEach((highlight) => {
+                    highlight.classList.remove('highlight');
+                });
             });
 
             if (query.length > 0) {
                 // Resaltamos las palabras encontradas
                 sections.forEach(section => {
-                    section.innerHTML = section.innerHTML.replace(regex, function(match) {
-                        return `<span class="highlight">${match}</span>`; // Resaltamos las palabras
+                    const textNodes = getTextNodesIn(section); // Obtener los nodos de texto dentro de cada sección
+                    textNodes.forEach(node => {
+                        const text = node.textContent;
+                        const newText = text.replace(regex, (match) => {
+                            return `<span class="highlight">${match}</span>`; // Resaltamos las palabras
+                        });
+                        node.parentNode.innerHTML = node.parentNode.innerHTML.replace(text, newText); // Reemplazar texto con el resaltado
                     });
                 });
             }
         });
+
+        // Función para obtener nodos de texto de un elemento
+        function getTextNodesIn(element) {
+            let textNodes = [];
+            for (let child of element.childNodes) {
+                if (child.nodeType === 3) {
+                    textNodes.push(child);
+                } else if (child.nodeType === 1) {
+                    textNodes = textNodes.concat(getTextNodesIn(child)); // Recursión para encontrar nodos de texto en nodos hijo
+                }
+            }
+            return textNodes;
+        }
 
         // Cambio de idioma usando Google Translate
         document.getElementById('language-selector').addEventListener('change', function() {
