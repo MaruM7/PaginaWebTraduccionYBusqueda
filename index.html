@@ -66,54 +66,55 @@
     </footer>
 
     <script>
-        // Función de búsqueda para la barra de búsqueda
-        document.getElementById('search-bar').addEventListener('input', function() {
-            const query = this.value.toLowerCase(); // Obtenemos la búsqueda en minúsculas
-            const sections = document.querySelectorAll('section'); // Seleccionamos todas las secciones
-            const regex = new RegExp(query, 'gi'); // Creamos una expresión regular para buscar la palabra (insensible a mayúsculas/minúsculas)
-
-            // Limpiamos los resaltes anteriores
+        // Barra de búsqueda
+        document.getElementById('search-bar').addEventListener('input', function () {
+            const query = this.value.toLowerCase();
+            const sections = document.querySelectorAll('section');
             sections.forEach(section => {
-                // Limpiar los resaltados previos
-                section.querySelectorAll('.highlight').forEach((highlight) => {
-                    highlight.classList.remove('highlight');
-                });
-            });
-
-            if (query.length > 0) {
-                // Resaltamos las palabras encontradas
-                sections.forEach(section => {
-                    const textNodes = getTextNodesIn(section); // Obtener los nodos de texto dentro de cada sección
-                    textNodes.forEach(node => {
-                        const text = node.textContent;
-                        const newText = text.replace(regex, (match) => {
-                            return `<span class="highlight">${match}</span>`; // Resaltamos las palabras
-                        });
-                        node.parentNode.innerHTML = node.parentNode.innerHTML.replace(text, newText); // Reemplazar texto con el resaltado
-                    });
-                });
-            }
-        });
-
-        // Función para obtener nodos de texto de un elemento
-        function getTextNodesIn(element) {
-            let textNodes = [];
-            for (let child of element.childNodes) {
-                if (child.nodeType === 3) {
-                    textNodes.push(child);
-                } else if (child.nodeType === 1) {
-                    textNodes = textNodes.concat(getTextNodesIn(child)); // Recursión para encontrar nodos de texto en nodos hijo
+                const textContent = section.textContent.toLowerCase();
+                if (query && textContent.includes(query)) {
+                    section.innerHTML = section.innerHTML.replace(
+                        new RegExp(`(${query})`, 'gi'),
+                        '<span class="highlight">$1</span>'
+                    );
+                } else {
+                    section.innerHTML = section.innerHTML.replace(/<span class="highlight">|<\/span>/g, '');
                 }
-            }
-            return textNodes;
-        }
-
-        // Cambio de idioma usando Google Translate
-        document.getElementById('language-selector').addEventListener('change', function() {
-            const lang = this.value;
-            const url = `https://translate.google.com/translate?hl=&sl=auto&tl=${lang}&u=${encodeURIComponent(window.location.href)}`;
-            window.location.href = url; // Redirigimos al URL traducido
+                section.style.display = textContent.includes(query) ? 'block' : 'none';
+            });
         });
+
+        // Traducción usando LibreTranslate API
+        const apiUrl = 'https://libretranslate.com/translate';
+        document.getElementById('language-selector').addEventListener('change', async function () {
+            const targetLang = this.value;
+            const sections = document.querySelectorAll('section, header h1, footer p');
+            for (const section of sections) {
+                const originalText = section.textContent; // Original text
+                const translatedText = await translateText(originalText, 'es', targetLang);
+                section.textContent = translatedText;
+            }
+        });
+
+        async function translateText(text, sourceLang, targetLang) {
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        q: text,
+                        source: sourceLang,
+                        target: targetLang,
+                        format: 'text'
+                    })
+                });
+                const data = await response.json();
+                return data.translatedText || text; // Return translation or original text if failed
+            } catch (error) {
+                console.error('Error al traducir:', error);
+                return text;
+            }
+        }
     </script>
 </body>
 </html>
