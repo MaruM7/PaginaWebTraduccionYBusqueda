@@ -19,12 +19,9 @@
         </nav>
         <div class="tools">
             <input type="text" id="search-bar" placeholder="Buscar...">
-            <select id="language-selector">
-                <option value="es">Español</option>
-                <option value="en">Inglés</option>
-                <option value="fr">Francés</option>
-                <option value="de">Alemán</option>
-            </select>
+            
+            <!-- Aquí agregamos el widget de Google Translate -->
+            <div id="google_translate_element"></div>
         </div>
     </header>
 
@@ -66,47 +63,26 @@
     </footer>
 
     <script>
-        // Función para resaltar las palabras encontradas
-        function highlightText(query) {
-            const sections = document.querySelectorAll('section');
-            sections.forEach(section => {
-                // Obtener el contenido HTML de la sección
-                let sectionText = section.innerHTML;
-
-                // Escapar cualquier carácter especial que pueda causar problemas en la expresión regular
-                query = query.replace(/[.*+?^=!:${}()|\[\]\/\\]/g, "\\$&");
-
-                // Crear una expresión regular para buscar palabras completas que coincidan con la búsqueda (sin que afecte a las mayúsculas o minúsculas)
-                const regex = new RegExp(`\\b(${query})\\b`, 'gi');
-
-                // Reemplazar las coincidencias con la etiqueta <span> para resaltar
-                const highlightedText = sectionText.replace(regex, '<span class="highlight">$1</span>');
-
-                // Actualizar el contenido de la sección con las palabras resaltadas
-                section.innerHTML = highlightedText;
-            });
-        }
-
         // Barra de búsqueda
         document.getElementById('search-bar').addEventListener('input', function() {
-            const query = this.value.trim().toLowerCase();  // Obtener la búsqueda en minúsculas y eliminar espacios en blanco
-            if (query) {
-                highlightText(query);  // Llamar a la función para resaltar las palabras
-            } else {
-                // Si la barra de búsqueda está vacía, eliminar el resaltado
-                const highlightedElements = document.querySelectorAll('.highlight');
-                highlightedElements.forEach(element => {
-                    element.classList.remove('highlight');
-                });
-            }
+            const query = this.value.toLowerCase();
+            const sections = document.querySelectorAll('section');
+            sections.forEach(section => {
+                section.style.display = section.textContent.toLowerCase().includes(query) ? 'block' : 'none';
+            });
         });
 
-        // Función de traducción con Google Translate
-        document.getElementById('language-selector').addEventListener('change', function() {
-            const lang = this.value;
-            const url = `https://translate.google.com/translate?hl=&sl=auto&tl=${lang}&u=${encodeURIComponent(window.location.href)}`;
-            window.location.href = url;
-        });
+        // Widget de Google Translate
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'es', // Idioma de la página
+                includedLanguages: 'es,en,fr,de', // Idiomas que queremos habilitar
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+            }, 'google_translate_element');
+        }
     </script>
+
+    <!-- Agregar el script para el widget de Google Translate -->
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>
