@@ -9,12 +9,12 @@
 </head>
 <body>
     <header>
-        <h1>Cultura de Europa</h1>
+        <h1 id="header-title">Cultura de Europa</h1>
         <nav>
             <ul>
-                <li><a href="#paises">Países</a></li>
-                <li><a href="#ciudades">Ciudades</a></li>
-                <li><a href="#tradiciones">Tradiciones</a></li>
+                <li><a href="#paises" id="nav-paises">Países</a></li>
+                <li><a href="#ciudades" id="nav-ciudades">Ciudades</a></li>
+                <li><a href="#tradiciones" id="nav-tradiciones">Tradiciones</a></li>
             </ul>
         </nav>
         <div class="tools">
@@ -23,102 +23,147 @@
                 <option value="es">Español</option>
                 <option value="en">Inglés</option>
                 <option value="fr">Francés</option>
-                <option value="de">Alemán</option>
             </select>
         </div>
     </header>
 
     <section id="paises">
-        <h2>Principales Países de Europa</h2>
-        <p>Europa es un continente diverso, hogar de numerosos países que varían en cultura, lengua e historia. Algunos de los países más destacados incluyen:</p>
+        <h2 id="paises-title">Principales Países de Europa</h2>
+        <p id="paises-description">Europa es un continente diverso, hogar de numerosos países que varían en cultura, lengua e historia. Algunos de los países más destacados incluyen:</p>
         <ul>
-            <li><strong>Francia:</strong> Famosa por su gastronomía, arte y la Torre Eiffel en París.</li>
-            <li><strong>Alemania:</strong> Un país con una rica historia, tecnología avanzada y tradiciones como el Oktoberfest.</li>
-            <li><strong>Italia:</strong> Cuna del Renacimiento, famosa por su arquitectura, arte y la comida mediterránea.</li>
-            <li><strong>España:</strong> Conocida por su cultura vibrante, su arquitectura única y su gastronomía.</li>
+            <li><strong id="paises-francia">Francia:</strong> Famosa por su gastronomía, arte y la Torre Eiffel en París.</li>
+            <li><strong id="paises-alemania">Alemania:</strong> Un país con una rica historia, tecnología avanzada y tradiciones como el Oktoberfest.</li>
+            <li><strong id="paises-italia">Italia:</strong> Cuna del Renacimiento, famosa por su arquitectura, arte y la comida mediterránea.</li>
+            <li><strong id="paises-espana">España:</strong> Conocida por su cultura vibrante, su arquitectura única y su gastronomía.</li>
         </ul>
     </section>
 
     <section id="ciudades">
-        <h2>Ciudades más importantes</h2>
-        <p>Europa alberga algunas de las ciudades más emblemáticas del mundo, cada una con su propio carácter y encanto:</p>
+        <h2 id="ciudades-title">Ciudades más importantes</h2>
+        <p id="ciudades-description">Europa alberga algunas de las ciudades más emblemáticas del mundo, cada una con su propio carácter y encanto:</p>
         <ul>
-            <li><strong>París:</strong> La ciudad del amor, famosa por el Louvre y la Catedral de Notre Dame.</li>
-            <li><strong>Londres:</strong> Una metrópolis moderna con historia milenaria, famosa por el Big Ben y el Palacio de Buckingham.</li>
-            <li><strong>Roma:</strong> La ciudad eterna, llena de monumentos históricos como el Coliseo y el Vaticano.</li>
-            <li><strong>Berlín:</strong> Una ciudad rica en historia y modernidad, famosa por la Puerta de Brandeburgo y su cultura alternativa.</li>
+            <li><strong id="ciudades-paris">París:</strong> La ciudad del amor, famosa por el Louvre y la Catedral de Notre Dame.</li>
+            <li><strong id="ciudades-londres">Londres:</strong> Una metrópolis moderna con historia milenaria, famosa por el Big Ben y el Palacio de Buckingham.</li>
+            <li><strong id="ciudades-roma">Roma:</strong> La ciudad eterna, llena de monumentos históricos como el Coliseo y el Vaticano.</li>
+            <li><strong id="ciudades-berlin">Berlín:</strong> Una ciudad rica en historia y modernidad, famosa por la Puerta de Brandeburgo y su cultura alternativa.</li>
         </ul>
     </section>
 
     <section id="tradiciones">
-        <h2>Tradiciones y Cultura</h2>
-        <p>La cultura europea está llena de tradiciones únicas que han evolucionado a lo largo de siglos. Algunas de las más importantes incluyen:</p>
+        <h2 id="tradiciones-title">Tradiciones y Cultura</h2>
+        <p id="tradiciones-description">La cultura europea está llena de tradiciones únicas que han evolucionado a lo largo de siglos. Algunas de las más importantes incluyen:</p>
         <ul>
-            <li><strong>El Carnaval de Venecia:</strong> Famoso por sus máscaras y disfraces extravagantes, es una de las celebraciones más coloridas de Italia.</li>
-            <li><strong>Oktoberfest en Alemania:</strong> El festival de la cerveza más grande del mundo, celebrado en Múnich.</li>
-            <li><strong>La Tomatina en España:</strong> Una fiesta peculiar donde miles de personas se lanzan tomates entre sí en la ciudad de Buñol.</li>
-            <li><strong>Las luces del norte:</strong> Fenómeno natural que se puede observar en países del norte de Europa como Noruega y Finlandia.</li>
+            <li><strong id="tradiciones-venecia">El Carnaval de Venecia:</strong> Famoso por sus máscaras y disfraces extravagantes, es una de las celebraciones más coloridas de Italia.</li>
+            <li><strong id="tradiciones-oktoberfest">Oktoberfest en Alemania:</strong> El festival de la cerveza más grande del mundo, celebrado en Múnich.</li>
+            <li><strong id="tradiciones-tomatina">La Tomatina en España:</strong> Una fiesta peculiar donde miles de personas se lanzan tomates entre sí en la ciudad de Buñol.</li>
+            <li><strong id="tradiciones-luces">Las luces del norte:</strong> Fenómeno natural que se puede observar en países del norte de Europa como Noruega y Finlandia.</li>
         </ul>
     </section>
 
     <footer>
-        <p>&copy; 2024 Cultura de Europa. Todos los derechos reservados.</p>
+        <p id="footer-text">&copy; 2024 Cultura de Europa. Todos los derechos reservados.</p>
     </footer>
 
     <script>
-        // URL base de la API Lingva Translate
-        const lingvaUrl = "https://lingva.ml/api/v1/translate";
-
-        // Función para traducir texto usando Lingva Translate
-        async function translatePage(language) {
-            const sections = document.querySelectorAll("section");
-
-            for (const section of sections) {
-                const originalText = section.dataset.originalText || section.innerHTML;
-
-                // Guarda el texto original para futuras traducciones
-                if (!section.dataset.originalText) {
-                    section.dataset.originalText = originalText;
-                }
-
-                try {
-                    const response = await fetch(`${lingvaUrl}?from=auto&to=${language}&text=${encodeURIComponent(originalText)}`);
-                    const data = await response.json();
-
-                    if (data && data.translation) {
-                        section.innerHTML = data.translation;
-                    }
-                } catch (error) {
-                    console.error("Error al traducir:", error);
-                    section.innerHTML = "Error al traducir este contenido.";
-                }
+        // Diccionario de traducción para tres idiomas (Español, Inglés, Francés)
+        const translations = {
+            "es": {
+                "header-title": "Cultura de Europa",
+                "nav-paises": "Países",
+                "nav-ciudades": "Ciudades",
+                "nav-tradiciones": "Tradiciones",
+                "paises-title": "Principales Países de Europa",
+                "paises-description": "Europa es un continente diverso, hogar de numerosos países que varían en cultura, lengua e historia. Algunos de los países más destacados incluyen:",
+                "ciudades-title": "Ciudades más importantes",
+                "ciudades-description": "Europa alberga algunas de las ciudades más emblemáticas del mundo, cada una con su propio carácter y encanto:",
+                "tradiciones-title": "Tradiciones y Cultura",
+                "tradiciones-description": "La cultura europea está llena de tradiciones únicas que han evolucionado a lo largo de siglos. Algunas de las más importantes incluyen:",
+                "footer-text": "&copy; 2024 Cultura de Europa. Todos los derechos reservados.",
+                "paises-francia": "Francia:",
+                "paises-alemania": "Alemania:",
+                "paises-italia": "Italia:",
+                "paises-espana": "España:",
+                "ciudades-paris": "París:",
+                "ciudades-londres": "Londres:",
+                "ciudades-roma": "Roma:",
+                "ciudades-berlin": "Berlín:",
+                "tradiciones-venecia": "El Carnaval de Venecia:",
+                "tradiciones-oktoberfest": "Oktoberfest en Alemania:",
+                "tradiciones-tomatina": "La Tomatina en España:",
+                "tradiciones-luces": "Las luces del norte:"
+            },
+            "en": {
+                "header-title": "Culture of Europe",
+                "nav-paises": "Countries",
+                "nav-ciudades": "Cities",
+                "nav-tradiciones": "Traditions",
+                "paises-title": "Main Countries of Europe",
+                "paises-description": "Europe is a diverse continent, home to many countries that vary in culture, language, and history. Some of the most notable countries include:",
+                "ciudades-title": "Most Important Cities",
+                "ciudades-description": "Europe is home to some of the most iconic cities in the world, each with its own character and charm:",
+                "tradiciones-title": "Traditions and Culture",
+                "tradiciones-description": "European culture is full of unique traditions that have evolved over centuries. Some of the most important include:",
+                "footer-text": "&copy; 2024 Culture of Europe. All rights reserved.",
+                "paises-francia": "France:",
+                "paises-alemania": "Germany:",
+                "paises-italia": "Italy:",
+                "paises-espana": "Spain:",
+                "ciudades-paris": "Paris:",
+                "ciudades-londres": "London:",
+                "ciudades-roma": "Rome:",
+                "ciudades-berlin": "Berlin:",
+                "tradiciones-venecia": "Venice Carnival:",
+                "tradiciones-oktoberfest": "Oktoberfest in Germany:",
+                "tradiciones-tomatina": "La Tomatina in Spain:",
+                "tradiciones-luces": "Northern Lights:"
+            },
+            "fr": {
+                "header-title": "Culture de l'Europe",
+                "nav-paises": "Pays",
+                "nav-ciudades": "Villes",
+                "nav-tradiciones": "Traditions",
+                "paises-title": "Principaux Pays d'Europe",
+                "paises-description": "L'Europe est un continent divers, abritant de nombreux pays qui varient en culture, langue et histoire. Parmi les pays les plus remarquables figurent :",
+                "ciudades-title": "Villes les plus importantes",
+                "ciudades-description": "L'Europe abrite certaines des villes les plus emblématiques du monde, chacune avec son propre caractère et charme :",
+                "tradiciones-title": "Traditions et Culture",
+                "tradiciones-description": "La culture européenne est pleine de traditions uniques qui ont évolué au fil des siècles. Certaines des plus importantes incluent :",
+                "footer-text": "&copy; 2024 Culture de l'Europe. Tous droits réservés.",
+                "paises-francia": "France:",
+                "paises-alemania": "Allemagne:",
+                "paises-italia": "Italie:",
+                "paises-espana": "Espagne:",
+                "ciudades-paris": "Paris:",
+                "ciudades-londres": "Londres:",
+                "ciudades-roma": "Rome:",
+                "ciudades-berlin": "Berlin:",
+                "tradiciones-venecia": "Le Carnaval de Venise:",
+                "tradiciones-oktoberfest": "Oktoberfest en Allemagne:",
+                "tradiciones-tomatina": "La Tomatina en Espagne:",
+                "tradiciones-luces": "Les lumières du nord:"
             }
+        };
+
+        // Función para traducir el contenido
+        function translatePage(lang) {
+            const elementsToTranslate = document.querySelectorAll('[id]');
+
+            elementsToTranslate.forEach(element => {
+                const id = element.id;
+                if (translations[lang] && translations[lang][id]) {
+                    element.innerText = translations[lang][id];
+                }
+            });
         }
 
-        // Escucha los cambios del selector de idioma
-        document.getElementById("language-selector").addEventListener("change", function () {
+        // Event listener para el cambio de idioma
+        document.getElementById('language-selector').addEventListener('change', function() {
             const selectedLanguage = this.value;
             translatePage(selectedLanguage);
         });
 
-        // Funcionalidad de búsqueda
-        document.getElementById("search-bar").addEventListener("input", function () {
-            const query = this.value.toLowerCase();
-            const sections = document.querySelectorAll("section");
-
-            // Elimina los resaltados anteriores
-            sections.forEach(section => {
-                section.innerHTML = section.innerHTML.replace(/<mark class="highlight">(.*?)<\/mark>/g, '$1');
-            });
-
-            // Resalta las coincidencias
-            if (query) {
-                sections.forEach(section => {
-                    const regex = new RegExp(`(${query})`, 'gi');
-                    section.innerHTML = section.innerHTML.replace(regex, '<mark class="highlight">$1</mark>');
-                });
-            }
-        });
+        // Inicializa con el idioma predeterminado
+        translatePage('es');
     </script>
 </body>
 </html>
