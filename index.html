@@ -6,6 +6,12 @@
     <title>Cultura de Europa</title>
     <link rel="stylesheet" href="index.css">
     <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+    <style>
+        .highlight {
+            background-color: yellow; /* Resaltar en amarillo */
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -19,7 +25,6 @@
         </nav>
         <div class="tools">
             <input type="text" id="search-bar" placeholder="Buscar...">
-            <!-- Aquí agregamos el widget de Google Translate -->
             <div id="google_translate_element"></div>
         </div>
     </header>
@@ -62,20 +67,43 @@
     </footer>
 
     <script>
+        // Función para limpiar todos los resaltados anteriores
+        function removeHighlights() {
+            const highlightedElements = document.querySelectorAll('.highlight');
+            highlightedElements.forEach(element => {
+                element.classList.remove('highlight');
+            });
+        }
+
+        // Función para buscar y resaltar la palabra
+        function highlightWord(query) {
+            removeHighlights(); // Limpiar cualquier resalto anterior
+
+            const regex = new RegExp(`\\b${query}\\b`, 'gi'); // Expresión regular para buscar la palabra exacta
+            const sections = document.querySelectorAll('section, p, li');
+            
+            sections.forEach(section => {
+                section.innerHTML = section.innerHTML.replace(regex, match => {
+                    return `<span class="highlight">${match}</span>`;
+                });
+            });
+        }
+
         // Barra de búsqueda
         document.getElementById('search-bar').addEventListener('input', function() {
             const query = this.value.toLowerCase();
-            const sections = document.querySelectorAll('section');
-            sections.forEach(section => {
-                section.style.display = section.textContent.toLowerCase().includes(query) ? 'block' : 'none';
-            });
+            if (query) {
+                highlightWord(query); // Resaltar la palabra al escribir
+            } else {
+                removeHighlights(); // Si no hay texto en la búsqueda, quitar los resaltados
+            }
         });
 
         // Google Translate Widget
         function googleTranslateElementInit() {
             new google.translate.TranslateElement({
-                pageLanguage: 'es', // Idioma de la página original
-                includedLanguages: 'es,en,fr,de', // Idiomas habilitados
+                pageLanguage: 'es',
+                includedLanguages: 'es,en,fr,de',
                 layout: google.translate.TranslateElement.InlineLayout.SIMPLE
             }, 'google_translate_element');
         }
