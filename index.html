@@ -70,16 +70,26 @@
         function highlightText(query) {
             const sections = document.querySelectorAll('section');
             sections.forEach(section => {
-                const sectionText = section.innerHTML;  // Obtener el HTML de la sección
-                const regex = new RegExp(`(${query})`, 'gi');  // Expresión regular para encontrar las coincidencias
-                const highlightedText = sectionText.replace(regex, '<span class="highlight">$1</span>');  // Resaltar las coincidencias
-                section.innerHTML = highlightedText;  // Reemplazar el contenido de la sección con el resaltado
+                // Obtener el contenido HTML de la sección
+                let sectionText = section.innerHTML;
+
+                // Escapar cualquier carácter especial que pueda causar problemas en la expresión regular
+                query = query.replace(/[.*+?^=!:${}()|\[\]\/\\]/g, "\\$&");
+
+                // Crear una expresión regular para buscar palabras completas que coincidan con la búsqueda (sin que afecte a las mayúsculas o minúsculas)
+                const regex = new RegExp(`\\b(${query})\\b`, 'gi');
+
+                // Reemplazar las coincidencias con la etiqueta <span> para resaltar
+                const highlightedText = sectionText.replace(regex, '<span class="highlight">$1</span>');
+
+                // Actualizar el contenido de la sección con las palabras resaltadas
+                section.innerHTML = highlightedText;
             });
         }
 
         // Barra de búsqueda
         document.getElementById('search-bar').addEventListener('input', function() {
-            const query = this.value.toLowerCase();
+            const query = this.value.trim().toLowerCase();  // Obtener la búsqueda en minúsculas y eliminar espacios en blanco
             if (query) {
                 highlightText(query);  // Llamar a la función para resaltar las palabras
             } else {
