@@ -63,6 +63,7 @@ nav ul li a:hover {
     border: 1px solid #ccc;
     border-radius: 5px;
     margin-right: 10px;
+    min-width: 200px; /* Asegura un tamaño consistente */
 }
 
 #language-selector {
@@ -70,6 +71,7 @@ nav ul li a:hover {
     font-size: 1rem;
     border: 1px solid #ccc;
     border-radius: 5px;
+    min-width: 150px; /* Asegura un tamaño consistente */
 }
 
 /* Estilos para las secciones */
@@ -79,6 +81,8 @@ section {
     background-color: white;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    word-wrap: break-word; /* Evita que palabras largas desborden el contenedor */
+    line-height: 1.6; /* Mejora la legibilidad */
 }
 
 /* Estilo para los títulos de las secciones */
@@ -104,6 +108,12 @@ footer {
 
 /* Estilo para resaltar las palabras encontradas durante la búsqueda */
 .highlight {
-    background-color: yellow;
+    background-color: yellow; /* Resalta en amarillo */
     font-weight: bold;
-} 
+    display: inline; /* Evita que las palabras resalten fuera de contexto */
+}
+
+/* Estilo para indicar que un texto está siendo traducido */
+.translating {
+    opacity: 0.5; /* Reduce la opacidad para indicar que se está procesando */
+}
