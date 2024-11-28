@@ -4,17 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cultura de Europa</title>
-    <link rel="stylesheet" href="indexIA.css">
+    <link rel="stylesheet" href="index.css">
     <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
-        <h1 id="header-title">Cultura de Europa</h1>
+        <h1>Cultura de Europa</h1>
         <nav>
             <ul>
-                <li><a href="#paises" id="menu-paises">Países</a></li>
-                <li><a href="#ciudades" id="menu-ciudades">Ciudades</a></li>
-                <li><a href="#tradiciones" id="menu-tradiciones">Tradiciones</a></li>
+                <li><a href="#paises">Países</a></li>
+                <li><a href="#ciudades">Ciudades</a></li>
+                <li><a href="#tradiciones">Tradiciones</a></li>
             </ul>
         </nav>
         <div class="tools">
@@ -29,35 +29,35 @@
     </header>
 
     <section id="paises">
-        <h2 id="paises-title">Principales Países de Europa</h2>
-        <p id="paises-text">Europa es un continente diverso, hogar de numerosos países que varían en cultura, lengua e historia. Algunos de los países más destacados incluyen:</p>
+        <h2>Principales Países de Europa</h2>
+        <p>Europa es un continente diverso, hogar de numerosos países que varían en cultura, lengua e historia. Algunos de los países más destacados incluyen:</p>
         <ul>
-            <li id="li-francia"><strong>Francia:</strong> Famosa por su gastronomía, arte y la Torre Eiffel en París.</li>
-            <li id="li-alemania"><strong>Alemania:</strong> Un país con una rica historia, tecnología avanzada y tradiciones como el Oktoberfest.</li>
-            <li id="li-italia"><strong>Italia:</strong> Cuna del Renacimiento, famosa por su arquitectura, arte y la comida mediterránea.</li>
-            <li id="li-espana"><strong>España:</strong> Conocida por su cultura vibrante, su arquitectura única y su gastronomía.</li>
+            <li><strong>Francia:</strong> Famosa por su gastronomía, arte y la Torre Eiffel en París.</li>
+            <li><strong>Alemania:</strong> Un país con una rica historia, tecnología avanzada y tradiciones como el Oktoberfest.</li>
+            <li><strong>Italia:</strong> Cuna del Renacimiento, famosa por su arquitectura, arte y la comida mediterránea.</li>
+            <li><strong>España:</strong> Conocida por su cultura vibrante, su arquitectura única y su gastronomía.</li>
         </ul>
     </section>
 
     <section id="ciudades">
-        <h2 id="ciudades-title">Ciudades más importantes</h2>
-        <p id="ciudades-text">Europa alberga algunas de las ciudades más emblemáticas del mundo, cada una con su propio carácter y encanto:</p>
+        <h2>Ciudades más importantes</h2>
+        <p>Europa alberga algunas de las ciudades más emblemáticas del mundo, cada una con su propio carácter y encanto:</p>
         <ul>
-            <li id="li-paris"><strong>París:</strong> La ciudad del amor, famosa por el Louvre y la Catedral de Notre Dame.</li>
-            <li id="li-londres"><strong>Londres:</strong> Una metrópolis moderna con historia milenaria, famosa por el Big Ben y el Palacio de Buckingham.</li>
-            <li id="li-roma"><strong>Roma:</strong> La ciudad eterna, llena de monumentos históricos como el Coliseo y el Vaticano.</li>
-            <li id="li-berlin"><strong>Berlín:</strong> Una ciudad rica en historia y modernidad, famosa por la Puerta de Brandeburgo y su cultura alternativa.</li>
+            <li><strong>París:</strong> La ciudad del amor, famosa por el Louvre y la Catedral de Notre Dame.</li>
+            <li><strong>Londres:</strong> Una metrópolis moderna con historia milenaria, famosa por el Big Ben y el Palacio de Buckingham.</li>
+            <li><strong>Roma:</strong> La ciudad eterna, llena de monumentos históricos como el Coliseo y el Vaticano.</li>
+            <li><strong>Berlín:</strong> Una ciudad rica en historia y modernidad, famosa por la Puerta de Brandeburgo y su cultura alternativa.</li>
         </ul>
     </section>
 
     <section id="tradiciones">
-        <h2 id="tradiciones-title">Tradiciones y Cultura</h2>
-        <p id="tradiciones-text">La cultura europea está llena de tradiciones únicas que han evolucionado a lo largo de siglos. Algunas de las más importantes incluyen:</p>
+        <h2>Tradiciones y Cultura</h2>
+        <p>La cultura europea está llena de tradiciones únicas que han evolucionado a lo largo de siglos. Algunas de las más importantes incluyen:</p>
         <ul>
-            <li id="li-carnaval"><strong>El Carnaval de Venecia:</strong> Famoso por sus máscaras y disfraces extravagantes, es una de las celebraciones más coloridas de Italia.</li>
-            <li id="li-oktoberfest"><strong>Oktoberfest en Alemania:</strong> El festival de la cerveza más grande del mundo, celebrado en Múnich.</li>
-            <li id="li-tomatina"><strong>La Tomatina en España:</strong> Una fiesta peculiar donde miles de personas se lanzan tomates entre sí en la ciudad de Buñol.</li>
-            <li id="li-luces"><strong>Las luces del norte:</strong> Fenómeno natural que se puede observar en países del norte de Europa como Noruega y Finlandia.</li>
+            <li><strong>El Carnaval de Venecia:</strong> Famoso por sus máscaras y disfraces extravagantes, es una de las celebraciones más coloridas de Italia.</li>
+            <li><strong>Oktoberfest en Alemania:</strong> El festival de la cerveza más grande del mundo, celebrado en Múnich.</li>
+            <li><strong>La Tomatina en España:</strong> Una fiesta peculiar donde miles de personas se lanzan tomates entre sí en la ciudad de Buñol.</li>
+            <li><strong>Las luces del norte:</strong> Fenómeno natural que se puede observar en países del norte de Europa como Noruega y Finlandia.</li>
         </ul>
     </section>
 
@@ -66,73 +66,23 @@
     </footer>
 
     <script>
-        // Función para traducir el texto
-        async function translateText(text, targetLang) {
-            const response = await fetch('https://libretranslate.de/translate', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    q: text,
-                    source: 'es', // idioma de origen (Español)
-                    target: targetLang, // idioma de destino
-                    format: 'text',
-                }),
+        // Barra de búsqueda
+        document.getElementById('search-bar').addEventListener('input', function() {
+            const query = this.value.toLowerCase();
+            const sections = document.querySelectorAll('section');
+            sections.forEach(section => {
+                section.style.display = section.textContent.toLowerCase().includes(query) ? 'block' : 'none';
             });
+        });
 
-            if (!response.ok) {
-                throw new Error('Error al traducir');
-            }
-
-            const data = await response.json();
-            return data.translatedText;
-        }
-
-        // Función para traducir todo el contenido de la página
-        async function translatePage(languageCode) {
-            const elementsToTranslate = [
-                { id: 'header-title', type: 'text' },
-                { id: 'menu-paises', type: 'text' },
-                { id: 'menu-ciudades', type: 'text' },
-                { id: 'menu-tradiciones', type: 'text' },
-                { id: 'paises-title', type: 'text' },
-                { id: 'paises-text', type: 'text' },
-                { id: 'ciudades-title', type: 'text' },
-                { id: 'ciudades-text', type: 'text' },
-                { id: 'tradiciones-title', type: 'text' },
-                { id: 'tradiciones-text', type: 'text' },
-                { id: 'li-francia', type: 'text' },
-                { id: 'li-alemania', type: 'text' },
-                { id: 'li-italia', type: 'text' },
-                { id: 'li-espana', type: 'text' },
-                { id: 'li-paris', type: 'text' },
-                { id: 'li-londres', type: 'text' },
-                { id: 'li-roma', type: 'text' },
-                { id: 'li-berlin', type: 'text' },
-                { id: 'li-carnaval', type: 'text' },
-                { id: 'li-oktoberfest', type: 'text' },
-                { id: 'li-tomatina', type: 'text' },
-                { id: 'li-luces', type: 'text' }
-            ];
-
-            for (let element of elementsToTranslate) {
-                const el = document.getElementById(element.id);
-                const originalText = el.innerText || el.textContent;
-                try {
-                    const translatedText = await translateText(originalText, languageCode);
-                    el.innerText = translatedText;
-                } catch (error) {
-                    console.error('Error al traducir:', error);
-                }
-            }
-        }
-
-        // Detectar el cambio de idioma
-        document.getElementById('language-selector').addEventListener('change', (e) => {
-            const selectedLanguage = e.target.value;
-            translatePage(selectedLanguage);
+        // Traducción
+        document.getElementById('language-selector').addEventListener('change', function() {
+            const lang = this.value;
+            const url = `https://translate.google.com/translate?hl=&sl=auto&tl=${lang}&u=${encodeURIComponent(window.location.href)}`;
+            window.location.href = url;
         });
     </script>
 </body>
 </html>
+
+El mié, 27 nov 2024 a las 9:06, Marouan Messaaf Machrat (<mmarouan01@educarex.es>) escribió:
