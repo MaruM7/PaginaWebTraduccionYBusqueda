@@ -19,7 +19,6 @@
         </nav>
         <div class="tools">
             <input type="text" id="search-bar" placeholder="Buscar...">
-            
             <!-- Aquí agregamos el widget de Google Translate -->
             <div id="google_translate_element"></div>
         </div>
@@ -72,11 +71,11 @@
             });
         });
 
-        // Widget de Google Translate
+        // Google Translate Widget
         function googleTranslateElementInit() {
             new google.translate.TranslateElement({
-                pageLanguage: 'es', // Idioma de la página
-                includedLanguages: 'es,en,fr,de', // Idiomas que queremos habilitar
+                pageLanguage: 'es', // Idioma de la página original
+                includedLanguages: 'es,en,fr,de', // Idiomas habilitados
                 layout: google.translate.TranslateElement.InlineLayout.SIMPLE
             }, 'google_translate_element');
         }
